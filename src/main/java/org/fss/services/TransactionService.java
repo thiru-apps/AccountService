@@ -39,7 +39,7 @@ public class TransactionService implements AccountServiceDao<Transactions> {
     if (optionalAccount.isEmpty()) {
       return Optional.ofNullable("Account is not valid");
     } else if (optionalAccount.get().getDateClosed() != null) {
-      return Optional.ofNullable("Account has been close so you can't do the transaction");
+      return Optional.ofNullable("Account has been closed so you can't do the transaction");
     }
 
     var account = optionalAccount.get();
@@ -47,12 +47,12 @@ public class TransactionService implements AccountServiceDao<Transactions> {
     var transactionAmount = transactionRequest.getTransactionAmount();
 
     switch (transactionRequest.getTransactionType().name()) {
-      case "DEBIT":
+      case "CREDIT":
         // TO DO If any checks for debit
         var debitBalance = currentBalance.add(transactionAmount);
         account.setCurrentBalance(debitBalance);
         break;
-      case "WITHDRAWAL":
+      case "DEBIT":
         Optional<String> preCheck = preCheckForWithdrawal(currentBalance, transactionAmount,
             account.getMinimumBalance());
         if (!preCheck.isEmpty()) {
@@ -72,7 +72,7 @@ public class TransactionService implements AccountServiceDao<Transactions> {
 
   @Override
   public List<Transactions> listAll() {
-    return null;
+    return transactionRepository.findAll();
   }
 
   @Override
