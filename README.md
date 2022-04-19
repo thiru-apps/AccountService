@@ -1,12 +1,12 @@
 # Spring Boot Account Maintanence Service
 
-This is a Account Maintanence Service developed under Java / Maven / Spring Boot (version 2.6.3)
+Account Maintanence Service developed under Java / Maven / Spring Boot (version 2.6.3)
 
 ## How to Run 
 
 This application is packaged as a jar which has Tomcat embedded. No Tomcat or JBoss installation is necessary. You run it using the ```java -jar``` command.
 
-* Clone this repository 
+* Clone/fork this repository 
 * Make sure you are using JDK 11 and Maven 3.x.
 * This project is embedded with H2 DB
 * You can build the project and run the tests by running ```mvn clean package```
