@@ -1,5 +1,5 @@
 package org.fss.models;
 
-public class TransactionType {
-
+public enum TransactionType {
+  CREDIT, DEBIT
 }

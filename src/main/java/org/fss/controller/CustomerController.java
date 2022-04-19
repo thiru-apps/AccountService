@@ -1,6 +1,5 @@
 package org.fss.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 import javax.validation.Valid;
 import org.fss.models.Customers;
@@ -50,27 +49,13 @@ public class CustomerController {
       return ResponseEntity.badRequest()
           .body(new MessageResponse("Exception: Email is already in use!"));
     }
-
-    LocalDate now = LocalDate.now();
-    var customers = new Customers.CustomersBuilder(customerRequest.getCustomerID(),
-        customerRequest.getCustomerName(), customerRequest.getCustomerPhone(),
-        customerRequest.getCustomerEmail(), now, null).build();
-    customers.setId(customerRequest.getCustomerID());
-    customers.setCustomerName(customerRequest.getCustomerName());
-    customers.setCustomerPhone(customerRequest.getCustomerPhone());
-    customers.setCustomerEmail(customerRequest.getCustomerEmail());
-    customers.setDateOpened(now);
-    return ResponseEntity.ok().body(customerService.save(customers));
+    return ResponseEntity.ok().body(customerService.save(customerRequest));
   }
 
   @PutMapping("/update/{id}")
   public ResponseEntity<?> updateCustomer(@Valid @RequestBody CustomerRequest customerRequest,
       @PathVariable String id) {
-    var customers = customerService.findById(id).get();
-    customers.setCustomerName(customerRequest.getCustomerName());
-    customers.setCustomerPhone(customerRequest.getCustomerPhone());
-    customers.setCustomerEmail(customerRequest.getCustomerEmail());
-    return ResponseEntity.ok().body(customerService.update(customers, id));
+    return ResponseEntity.ok().body(customerService.update(customerRequest, id));
   }
 
 }
